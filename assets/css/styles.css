@@ -284,9 +284,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .seat-map text { font-family: var(--font); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
 .seat-map .ground { fill: var(--ground); stroke: var(--ground-line); stroke-width: 2; }
-.seat-map .bldg { fill: #fdfcfa; stroke: #aeb6c1; stroke-width: 3.5; }
+.seat-map .bldg { fill: #f8dcc4; stroke: #aeb6c1; stroke-width: 3.5; }   /* the whole plate is the ceremony ground */
 .seat-map .bldg-sh { fill: rgba(28,37,48,.07); }
-.seat-map .surf rect:first-child { fill: #f8dcc4; stroke: #e29555; stroke-width: 2; }
+.seat-map .surf rect:first-child { fill: none; stroke: none; }
 .seat-map .aisle { fill: none; }
 
 /* seat blocks: cluster colours are the overview's cụm 1 / cụm 2 tokens */
@@ -296,12 +296,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .seat-map .tbl rect { fill: #fff; stroke-width: 1.4; } .seat-map .tbl text { font-size: 17px; font-weight: 700; letter-spacing: .4em; fill: var(--ink-3); }
 .seat-map .c2 .tbl rect { stroke: var(--c2-stroke); } .seat-map .c1 .tbl rect { stroke: var(--c1-stroke); }
 .seat-map .dai rect { fill: #f8eaa6; stroke: #d3b035; stroke-width: 1.2; } .seat-map .dai text { font-size: 17px; font-weight: 700; letter-spacing: .3em; fill: #6b520a; }
-.seat-map .seat { cursor: pointer; }
+.seat-map .seat { cursor: default; }
+.seat-map .seat { transition: opacity .15s; }
+.seat-map.grouping .seat:not(.hl), .seat-map.grouping .pcell:not(.hl) { opacity: .3; }   /* the seats that share the hovered seat's check-in room stay lit */
+.seat-map .c2 .seat.hl rect { fill: #c3d8f8; stroke-width: 2.2; } .seat-map .c1 .seat.hl rect { fill: #fbc9a3; stroke-width: 2.2; }
 .seat-map .seat rect { stroke-width: 1.3; transition: fill .12s, stroke-width .12s; }
 .seat-map .seat text { font-size: 17px; font-weight: 700; }
 .seat-map .c2 .seat rect { fill: var(--c2-fill); stroke: var(--c2-stroke); } .seat-map .c2 .seat text { fill: var(--c2-ink); }
 .seat-map .c1 .seat rect { fill: var(--c1-fill); stroke: var(--c1-stroke); } .seat-map .c1 .seat text { fill: var(--c1-ink); }
-.seat-map .c2 .seat:hover rect { fill: #c8dbf8; stroke-width: 2; } .seat-map .c1 .seat:hover rect { fill: #fbd2b3; stroke-width: 2; }
 .seat-map .seat.sel rect { stroke: var(--ink); stroke-width: 2.4; } .seat-map .seat.sel text { fill: #fff; }
 .seat-map .c2 .seat.sel rect { fill: var(--c2); } .seat-map .c1 .seat.sel rect { fill: var(--c1); }
 .seat-map .rowl { font-size: 18px; font-weight: 700; fill: var(--ink-3); text-anchor: middle; dominant-baseline: central; }
@@ -309,28 +311,31 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* parents zone, walkways and POIs reuse the overview's skins */
 .seat-map .k-par rect:first-child { fill: #efe9fb; stroke: #c9b8ec; stroke-width: 1.6; }
 .seat-map .k-par .pcell { fill: #fff; stroke: #c9b8ec; stroke-width: 1; }
+.seat-map .k-par .pcell.hl { fill: #e2d6f7; stroke: #8e67c9; stroke-width: 2; }
 .seat-map .zone-cap { text-anchor: start; font-size: 19px; font-weight: 700; letter-spacing: .18em; fill: #7a64b8; }
 .seat-map .k-walk .o { fill: #d3b035; } .seat-map .k-walk .f { fill: #f8eaa6; }
 .seat-map .lane-cap { font-size: 21px; text-anchor: middle; dominant-baseline: central; font-weight: 700; letter-spacing: .14em; }
 .seat-map .k-path-1 .o { fill: var(--c1-stroke); } .seat-map .k-path-1 .f { fill: #ffd9bd; } .seat-map .lane-cap.k-path-1 { fill: var(--c1-ink); }
-.seat-map .k-path-2 .o { fill: #8fb3ea; } .seat-map .k-path-2 .f { fill: #c3d9f7; } .seat-map .lane-cap.k-path-2 { fill: var(--c2-ink); }
+.seat-map .k-path-2 .o { fill: var(--c2-stroke); } .seat-map .k-path-2 .oa { fill: none; stroke: var(--c2-stroke); stroke-width: 3; } .seat-map .k-path-2 .f { fill: var(--c2-fill); } .seat-map .lane-cap.k-path-2 { fill: var(--c2-ink); }
+.seat-map .k-exit .o { fill: #d64545; } .seat-map .k-exit .f { fill: #f6c4c4; } .seat-map .lane-cap.k-exit { fill: #8a1f1f; }
 .seat-map .k-path-p .o { fill: #b9a3e6; } .seat-map .k-path-p .f { fill: #e2d6f7; } .seat-map .lane-cap.k-path-p { fill: #5b4596; }
 .seat-map .stage rect:first-child { fill: #d9651b; stroke: #b04e0f; stroke-width: 1.6; }
 .seat-map .stage text { font-size: 38px; text-anchor: middle; dominant-baseline: central; font-weight: 700; letter-spacing: .24em; fill: #fff; }
 .seat-map .med rect { fill: #d94a4a; } .seat-map .med path { stroke: #fff; stroke-width: 2.4; stroke-linecap: round; }
-.seat-map .cong rect { fill: #ffe3cc; stroke: #e8955a; stroke-width: 1.6; } .seat-map .cong text { font-size: 20px; font-weight: 700; fill: #8a4510; text-anchor: middle; dominant-baseline: central; letter-spacing: .06em; }
-.seat-map .room rect { fill: #fff; stroke: #c3c8d0; stroke-width: 1.6; } .seat-map .room text { font-size: 24px; font-weight: 700; fill: var(--ink-2); }
+.seat-map .cong rect { fill: #ffe3cc; stroke: #e8955a; stroke-width: 1.6; } .seat-map .cong text { font-size: 28px; font-weight: 700; fill: #8a4510; text-anchor: middle; dominant-baseline: central; letter-spacing: .06em; }
+.seat-map .room rect { fill: #fff; stroke: #c3c8d0; stroke-width: 1.6; } .seat-map .room text { font-size: 32px; font-weight: 700; fill: var(--ink-2); }
 .seat-map .seven rect { fill: #fff; stroke: #0d8a6a; stroke-width: 2; }
 .seat-map .tpb rect { fill: #8a3fd1; } .seat-map .tpb text { font-size: 15px; font-weight: 700; fill: #ffe56a; }
 .seat-map .exit rect { fill: #fdecec; stroke: #d64545; stroke-width: 1.6; } .seat-map .exit text { font-size: 14px; font-weight: 700; letter-spacing: .12em; fill: #a32222; text-anchor: middle; dominant-baseline: central; }
 .seat-map .exit rect, .seat-map .cong rect { filter: drop-shadow(0 1.5px 2px rgba(60,30,10,.18)); }
-.seat-map .statue rect { fill: #f8eaa6; stroke: #d3b035; stroke-width: 1.4; } .seat-map .statue text { font-size: 17px; font-weight: 700; fill: #6b520a; }
+.seat-map .statue rect { fill: #f8eaa6; stroke: #d3b035; stroke-width: 1.4; } .seat-map .statue text { font-size: 28px; font-weight: 700; fill: #6b520a; }
 .seat-map .gate rect { fill: #ffb27d; stroke: var(--c1-stroke); stroke-width: 1.6; } .seat-map .gate text { font-size: 11px; font-weight: 700; letter-spacing: .12em; fill: #6b2b05; }
 .seat-map .fence .fr { fill: none; stroke: #6f7a89; stroke-width: 5; stroke-linecap: round; }
 .seat-map .fence .fr2 { fill: none; stroke: #fdfcfa; stroke-width: 1.8; stroke-linecap: round; }
 .seat-map .fence circle { fill: #6f7a89; stroke: #fdfcfa; stroke-width: 1.5; }
 .seat-map .fence text { font-size: 11px; font-weight: 700; letter-spacing: .3em; fill: #5d6877; stroke: #fdfcfa; stroke-width: 7px; paint-order: stroke; text-anchor: middle; dominant-baseline: central; }
 .seat-map .arrow { fill: none; stroke: #b9784a; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; opacity: .75; }
+.seat-map .arrow-b.west .arrow { stroke: var(--c2-stroke); }   /* the arrows on the blue side match the blue seats */
 .seat-map .c:hover > rect:first-child { filter: brightness(.98); }
 
 @media (max-width: 900px) { .crumbs-meta, .crumbs ol { display: none; } }
