@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sơ Đồ Lễ Tốt Nghiệp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { corePlugins: { preflight: false }, theme: { extend: { fontFamily: { sans: ['"Be Vietnam Pro"', 'sans-serif'] } } } }</script>
+<script src="assets/js/lucide.min.js"></script>
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="font-sans">
+<div class="app">
+
+  <header class="topbar">
+    <nav id="tabs" class="tabs" role="tablist" aria-label="Các giai đoạn điều phối"></nav>
+  </header>
+
+  <main id="stage" class="stage">
+    <svg id="map" role="application" aria-label="Sơ đồ khu vực tổ chức lễ tốt nghiệp"></svg>
+
+    <div class="float zoomctl card" role="group" aria-label="Điều khiển bản đồ">
+      <button id="zin" title="Phóng to (+)" aria-label="Phóng to"><i data-lucide="plus"></i></button>
+      <button id="zout" title="Thu nhỏ (−)" aria-label="Thu nhỏ"><i data-lucide="minus"></i></button>
+      <button id="fit" title="Vừa màn hình (0)" aria-label="Vừa màn hình"><i data-lucide="maximize"></i></button>
+      <button id="reset" title="Đặt lại" aria-label="Đặt lại chế độ xem"><i data-lucide="rotate-ccw"></i></button>
+      <button id="legendToggle" title="Chú giải" aria-label="Bật/tắt chú giải" aria-pressed="true"><i data-lucide="layers"></i></button>
+      <div id="zlvl" class="zoomlvl">100%</div>
+    </div>
+
+    <aside id="panel" class="float panel card" aria-label="Chi tiết khu vực">
+      <div class="panel-head">
+        <div><h2 id="pTitle"></h2><p id="pSub" class="sub"></p></div>
+        <button id="pClose" class="iconbtn" aria-label="Đóng"><i data-lucide="x"></i></button>
+      </div>
+      <div id="pChips" class="chips"></div>
+      <dl id="pRows" class="rows"></dl>
+    </aside>
+
+    <div id="tip" class="tip" role="tooltip"></div>
+  </main>
+
+  <footer id="legend" class="legend" aria-label="Chú giải"></footer>
+  <footer id="sgLegend" class="legend" aria-label="Chú giải sơ đồ chỗ ngồi" hidden></footer>
+</div>
+
+<script src="assets/data/map-data.js"></script>
+<script src="assets/data/seating-data.js"></script>
+<script src="assets/js/seating.js"></script>
+<script src="assets/js/map.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
