@@ -317,7 +317,7 @@
       const s = size(), aw = s.w - insets.l - insets.r, ah = s.h - insets.t - insets.b;
       fitK = Math.min(aw / (W + EXT + EXTL), ah / (H + EXTT));
       // phones: don't shrink seats into specks – start readable on the first block and let the user pan
-      const k = s.w < 700 ? Math.max(fitK, .5) : fitK;
+      const k = Math.min(s.w, s.h) < 520 ? Math.max(fitK, .85) : fitK;
       return { k, x: k > fitK ? insets.l - (blocks[0].x0 - 40) * k : insets.l + (aw - (W + EXT + EXTL) * k) / 2 + EXTL * k, y: insets.t + Math.max(0, (ah - (H + EXTT) * k) / 2) + EXTT * k };
     }
     const rectTarget = r => {       // camera that puts the ceremony ground exactly on screen rect r

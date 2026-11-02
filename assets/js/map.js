@@ -226,7 +226,7 @@
       const whole = Math.min(aw / W.w, ah / W.h);
       fitK = whole;
       // Narrow portrait screens: keep text readable and let the user pan instead of shrinking everything.
-      const k = s.w < 700 ? Math.max(whole, 0.55) : whole;
+      const k = Math.min(s.w, s.h) < 520 ? Math.max(whole, 0.8) : whole;
       return { k, x: k > whole ? insets.l - W.x * k : insets.l + (aw - W.w * k) / 2 - W.x * k,
                y: insets.t + (ah - W.h * k) / 2 - W.y * k };
     }
