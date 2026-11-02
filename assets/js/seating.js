@@ -50,7 +50,7 @@
     'tbl-b': ['Bàn', 'Phía khối ghế xanh'], 'tbl-o': ['Bàn', 'Phía khối ghế cam'],
     'path-1': ['Lối vào cụm 1', 'Barie đặt dọc theo lối'],
     'path-2': ['Lối vào cụm 2', 'Barie đặt dọc theo lối'],
-    'path-p': ['Lối vào phụ huynh', 'Barie đặt dọc theo lối'],
+    'path-p': ['Lối Vào Phụ Huynh', 'Barie đặt dọc theo lối'],
   };
   const LEGEND = [
     ['seat-b', `Tân cử nhân`, 'var(--c2-fill)', 'var(--c2-stroke)'],

@@ -145,6 +145,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #map .area .lbl.cap { letter-spacing: .16em; font-weight: 700; opacity: .8; }
 #map .area .ico { stroke: var(--ink); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: opacity .2s; }
 #map.no-entry-lbl .area.t-gate1 .lbl, #map.no-entry-lbl .area.t-lane2 .lbl { opacity: 0; }
+#map.no-exit-lbl .area.k-lane.t-exitgate .lbl { opacity: 0; }
 #map .area .lod { opacity: 0; transition: opacity .2s; }
 #map.zoomed .area .lod { opacity: 1; }
 #map.zoomed .area .ico.swap { opacity: 0; }
@@ -175,7 +176,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #map .skin-c1 { --fill: var(--c1-fill); --stroke: var(--c1-stroke); --ink: var(--c1-ink); }
 #map .skin-c2 { --fill: var(--c2-fill); --stroke: var(--c2-stroke); --ink: var(--c2-ink); }
 #map .skin-garden { --fill: var(--g-fill); --stroke: var(--g-stroke); --ink: var(--g-ink); }
-#map .skin-garden .sh, #map .skin-ceremony .sh, #map .skin-lane-tcn .sh { display: none; }
+#map .skin-garden .sh, #map .skin-ceremony .sh, #map .skin-lane-tcn .sh, #map .skin-lane-exit .sh { display: none; }
 #map .skin-lake { --fill: #f4cadf; --stroke: #d983b2; --ink: #7d2456; }
 #map .skin-statue { --fill: #f8eaa6; --stroke: #d3b035; --ink: #6b520a; }
 #map .skin-library { --fill: #f9dada; --stroke: #e48f8f; --ink: #7d2a2a; }
@@ -184,6 +185,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #map .skin-gate { --fill: #fdecd9; --stroke: #e9a15f; --ink: #8a3d0c; }
 #map .skin-entry { --fill: #ffb27d; --stroke: #e08a45; --ink: #6b2b05; }
 #map .skin-lane-tcn { --fill: #c3d9f7; --stroke: #8fb3ea; --ink: #1d3f86; }
+#map .skin-lane-exit { --fill: #f6c4c4; --stroke: #d64545; --ink: #8a1f1f; }
+#map .skin-parents { --fill: #cdb8ee; --stroke: #8e67a6; --ink: #3f2670; }
+#map .skin-parents .sh { display: none; }
 #map .skin-lane-arrive { --fill: #f7e3a6; --stroke: #e1bb52; --ink: #6e4d08; }
 #map .skin-drum { --fill: #fff7ee; --stroke: #e9a15f; --ink: #8a3d0c; }
 #map .skin-med { --fill: #d94a4a; --stroke: #d94a4a; --ink: #fff; }
@@ -216,11 +220,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #map .flow.blue .line { stroke: var(--c2); }   #map .flow.blue .head { stroke: var(--c2); }
 #map .flow.amber .line { stroke: var(--amber); } #map .flow.amber .head { stroke: var(--amber); }
 #map .flow.green .line { stroke: var(--green); } #map .flow.green .head { stroke: var(--green); }
+#map .flow.purple .line { stroke: #7b4fc9; } #map .flow.purple .head { stroke: #7b4fc9; }
+#map .mark.gone { display: none; }
 #map .flow.red .line { stroke: #d64545; } #map .flow.red .head { stroke: #d64545; }
 #map .badge rect { stroke: #fff; stroke-width: 3; }
 #map .badge text { fill: #fff; font-weight: 700; text-anchor: middle; dominant-baseline: central; font-size: 14px; }
 #map .badge.orange rect { fill: var(--c1); } #map .badge.blue rect { fill: var(--c2); }
-#map .badge.amber rect { fill: var(--amber); } #map .badge.green rect { fill: var(--green); } #map .badge.red rect { fill: #d64545; }
+#map .badge.amber rect { fill: var(--amber); } #map .badge.green rect { fill: var(--green); } #map .badge.red rect { fill: #d64545; } #map .badge.purple rect { fill: #7b4fc9; }
 
 @keyframes march { to { stroke-dashoffset: -13; } }
 

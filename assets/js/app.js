@@ -37,7 +37,8 @@
     statue: ['#f8eaa6', '#d3b035'], library: ['#f9dada', '#e48f8f'], ceremony: ['#f6d3b4', '#e29555'], med: ['#d94a4a', '#d94a4a'],
     tpb: ['#8a3fd1', '#8a3fd1'], seven: ['#ffffff', '#0d8a6a'], passion: ['#ffffff', '#9cc62f'], laha: ['#6fd592', '#6fd592'],
     'lane-arrive': ['#f7e3a6', '#e1bb52'], 'lane-tcn': ['#c3d9f7', '#8fb3ea'], nogo: ['#fde4e4', '#d64545'],
-    entry: ['#ffb27d', '#e08a45'], gate: ['#fdecd9', '#e9a15f'],
+    stage: ['#d9651b', '#b04e0f'], drum: ['#fff7ee', '#e9a15f'], 'lane-exit': ['#f6c4c4', '#d64545'],
+    entry: ['#ffb27d', '#e08a45'], gate: ['#fdecd9', '#e9a15f'], parents: ['#cdb8ee', '#8e67a6'],
   };
   legend.querySelectorAll('.lg-sw').forEach(sw => {
     const key = sw.className.match(/skin-(\S+)/)[1];
@@ -75,8 +76,10 @@
     tabs.querySelectorAll('.tab').forEach((t, n) => t.setAttribute('aria-selected', String(n === i)));
     const s = D.steps[i];
     svg.classList.toggle('no-entry-lbl', !!s.hideLabels);   // the entrance names would sit under the flows
+    svg.classList.toggle('no-exit-lbl', !!s.hideExitLbl);
     svg.querySelectorAll('.flow').forEach(f => f.classList.toggle('on', s.flows.some(c => f.classList.contains(c))));
     svg.querySelectorAll('.badge').forEach(f => f.classList.toggle('on', s.badges.some(c => f.classList.contains(c))));
+    markEls.forEach(m => m.classList.toggle('gone', (s.hideMarks || []).some(c => m.classList.contains(c))));
     applyFocus();
   }
   function applyFocus() {

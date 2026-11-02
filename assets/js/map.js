@@ -172,7 +172,7 @@
       el('path', { class: 'nogo-l', d: 'M-4.5 4.5L4.5 -4.5', 'stroke-width': 2 }, g);
     });
     data.nogo.forEach(n => {
-      const g = el('g', { class: 'mark t-nogo', transform: `translate(${n.x} ${n.y})` }, L.marks);
+      const g = el('g', { class: 'mark t-nogo' + (n.cls ? ' ' + n.cls : ''), transform: `translate(${n.x} ${n.y})` }, L.marks);
       if (n.label) {
         // A barrier cell across the corridor (perpendicular to the walking direction), styled like a room.
         el('rect', { class: 'sh', x: -n.w / 2, y: -10.5, width: n.w, height: 28, rx: 7 }, g);
