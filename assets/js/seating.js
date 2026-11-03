@@ -290,7 +290,7 @@
     // seats that check in at the same room(s) light up together when one of them is hovered
     const groups = new Map();
     seatById.forEach((g, id) => { const k = checkIn(id[0], +id.slice(1)); (groups.get(k) || groups.set(k, []).get(k)).push(g); });
-    const PCL = { P1: 'Cụm 1 · bên trái', P2: 'Cụm 2 · bên phải', P3: 'Cụm 3 · cạnh Tượng' };
+    const PCL = { P1: 'Khu Vực Phụ Huynh 25-50', P2: 'Khu Vực Phụ Huynh 1-24', P3: 'Khu Vực Phụ Huynh Cạnh Tượng' };
     [1, 2, 3].forEach(n => groups.set('P' + n, [...vp.querySelectorAll(`.pcell[data-cl="${n}"]`)]));
     let lit = null;
     const light = key => {
@@ -423,7 +423,7 @@
       // any point of the parents' frame (cells, gaps, padding) belongs to the cluster under it
       const zone = e.target.closest?.('.zone.k-par'), pc = zone ? { dataset: { cl: zone.dataset.ex ? 3 : ((e.clientX - svg.getBoundingClientRect().left - cam.x) / cam.k < AX ? 1 : 2) } } : null;
       light(pc ? 'P' + pc.dataset.cl : g.classList.contains('seat') ? checkIn(g.dataset.seat[0], +g.dataset.seat.slice(1)) : null);
-      if (pc) tip.innerHTML = `<b>Phụ huynh · ${PCL['P' + pc.dataset.cl]}</b><span>${groups.get('P' + pc.dataset.cl).length} ghế</span>`;
+      if (pc) tip.innerHTML = `<b>${PCL['P' + pc.dataset.cl]}</b><span>${groups.get('P' + pc.dataset.cl).length} ghế</span>`;
       else if (g.classList.contains('seat')) { const id = g.dataset.seat; tip.innerHTML = `<b>Ghế ${id[0]}-${id.slice(1)}</b><span>${checkIn(id[0], +id.slice(1))}</span>`; }
       else tip.innerHTML = `<b>${g.dataset.t}</b>${g.dataset.s ? `<span>${g.dataset.s}</span>` : ''}`;
       tip.classList.add('show');
