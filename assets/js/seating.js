@@ -383,6 +383,18 @@
       const r = svg.getBoundingClientRect();
       zoomAt(Math.exp(-e.deltaY * (e.ctrlKey ? .01 : .0016)), e.clientX - r.left, e.clientY - r.top);
     }, { passive: false });
+    const GAP_REACH = 12;   // how far (plan px) a seat's hover area extends into the gaps around it
+    function gapSeat(e) {
+      const r = svg.getBoundingClientRect(), wx = (e.clientX - r.left - cam.x) / cam.k, wy = (e.clientY - r.top - cam.y) / cam.k;
+      let id = null, key = null;
+      for (const [x, y, w, h, , l] of seats) {
+        if (wx < x - GAP_REACH || wx > x + w + GAP_REACH || wy < y - GAP_REACH || wy > y + h + GAP_REACH) continue;
+        const k = checkIn(l[0], +l.slice(1));
+        if (key && k !== key) return null;   // between two different groups: no seat
+        key = k; id = l;
+      }
+      return id;
+    }
     const ptrs = new Map(); let last = null, pinch = 0, moved = false;
     svg.addEventListener('pointerdown', e => {
       svg.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]);
@@ -404,7 +416,9 @@
         return;
       }
       // hover tooltip (absolutely positioned, so nothing shifts)
-      const g = e.target.closest?.('.seat, .c');
+      let g = e.target.closest?.('.seat, .c');
+      // the gap between seats (or the tray padding beside them) counts as the seat when every seat within reach shares one check-in group
+      if (!g && e.target.closest?.('.block')) { const id = gapSeat(e); if (id) g = seatById.get(id); }
       if (!g) { tip.classList.remove('show'); light(null); return; }
       // any point of the parents' frame (cells, gaps, padding) belongs to the cluster under it
       const zone = e.target.closest?.('.zone.k-par'), pc = zone ? { dataset: { cl: zone.dataset.ex ? 3 : ((e.clientX - svg.getBoundingClientRect().left - cam.x) / cam.k < AX ? 1 : 2) } } : null;
