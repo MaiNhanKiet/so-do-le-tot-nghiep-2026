@@ -144,7 +144,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #map .area .ripple { fill: none; stroke: #fff; stroke-opacity: .55; pointer-events: none; }
 #map .area .drum-ring { stroke: #e2a564; stroke-opacity: .55; stroke-width: 1.2; }
 #map .area .lbl { fill: var(--ink); font-weight: 650; text-anchor: middle; dominant-baseline: alphabetic; }
-#map .area .lbl.cap { letter-spacing: .16em; font-weight: 700; opacity: .8; }
+#map .area .lbl.cap { letter-spacing: .16em; font-weight: 700; fill-opacity: .8; }
 #map .area .ico { stroke: var(--ink); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: opacity .2s; }
 #map.no-entry-lbl .area.t-gate1 .lbl, #map.no-entry-lbl .area.t-lane2 .lbl { opacity: 0; }
 #map.no-exit-lbl .area.k-lane.t-exitgate .lbl { opacity: 0; }
