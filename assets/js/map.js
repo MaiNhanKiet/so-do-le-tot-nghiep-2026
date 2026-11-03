@@ -44,7 +44,7 @@
     let autoFit = true;
     const view = { k: 1, x: 0, y: 0 };
     let fitK = 1, anim = 0;
-    let insets = { l: 16, t: 16, r: 72, b: 16 };
+    let insets = innerWidth < 640 ? { l: 4, t: 16, r: 4, b: 16 } : { l: 16, t: 16, r: 72, b: 16 };
     const byId = {};
 
     svg.textContent = '';
@@ -143,7 +143,7 @@
         const pic = el('g', { class: 'ico swap', transform: `translate(${cx - s / 2} ${cy - s / 2}) scale(${s / 24})` }, g);
         ICONS[a.kind].forEach(d => el('path', { d }, pic));
         const vertical = textW(a.label, a.fs) > a.w - 6 && a.h > a.w;
-        el('text', { class: 'lbl lod', x: cx, y: cy, 'font-size': a.fs, transform: vertical ? `rotate(-90 ${cx} ${cy})` : rot }, g).textContent = a.label;
+        el('text', { class: 'lbl lod', x: cx, y: cy, dy: '.35em', 'font-size': a.fs, transform: vertical ? `rotate(-90 ${cx} ${cy})` : rot }, g).textContent = a.label;
       } else if (a.logo) {
         // Brand mark instead of a text label, centred and turned with the cell.
         const lx = a.lx ?? cx, ly = a.ly ?? cy, L = a.logo;
@@ -157,7 +157,7 @@
         const t = vertical ? `rotate(-90 ${lx} ${ly})` : rot;
         lines.forEach((l, i) => {
           const dy = (i - (lines.length - 1) / 2) * a.fs * 1.18;
-          el('text', { class: 'lbl' + (caption ? ' cap' : ''), x: lx, y: ly + dy, 'font-size': a.fs, transform: t }, g).textContent = l;
+          el('text', { class: 'lbl' + (caption ? ' cap' : ''), x: lx, y: ly + dy, dy: '.35em', 'font-size': a.fs, transform: t }, g).textContent = l;
         });
       }
       byId[a.id] = { data: a, g };
@@ -225,12 +225,11 @@
       const s = size(), aw = s.w - insets.l - insets.r, ah = s.h - insets.t - insets.b;
       const whole = Math.min(aw / W.w, ah / W.h);
       fitK = whole;
-      // Narrow portrait screens: keep text readable and let the user pan instead of shrinking everything.
-      const k = Math.min(s.w, s.h) < 520 ? Math.max(whole, 0.8) : whole;
-      return { k, x: k > whole ? insets.l - W.x * k : insets.l + (aw - W.w * k) / 2 - W.x * k,
-               y: insets.t + (ah - W.h * k) / 2 - W.y * k };
+      // Always open with the whole map inside the screen; the user zooms in themselves.
+      return { k: whole, x: insets.l + (aw - W.w * whole) / 2 - W.x * whole,
+               y: insets.t + (ah - W.h * whole) / 2 - W.y * whole };
     }
-    const minK = () => fitK * 0.8, maxK = () => fitK * 6;
+    const minK = () => fitK * 0.8, maxK = () => fitK * (Math.min(size().w, size().h) < 520 ? 10 : 6);
 
     function to(t, ms = 450) {
       cancelAnimationFrame(anim);

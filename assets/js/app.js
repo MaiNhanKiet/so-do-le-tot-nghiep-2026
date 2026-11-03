@@ -123,7 +123,7 @@
   function select(a) {
     if (state.selected) map.byId[state.selected.id].g.classList.remove('sel');
     state.selected = a;
-    if (!a) { panel.classList.remove('open'); map.setInsets({ r: 72 }); return; }
+    if (!a) { panel.classList.remove('open'); map.setInsets({ r: innerWidth < 640 ? 4 : 72 }); return; }
     map.byId[a.id].g.classList.add('sel');
     const grp = a.tags.find(t => GROUP[t]);
     const rows = [];

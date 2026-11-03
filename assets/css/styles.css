@@ -129,7 +129,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* ───────────── SVG map ───────────── */
 #map .ground { fill: var(--ground); stroke: var(--ground-line); stroke-width: 2; }
 #map text { font-family: var(--font); pointer-events: none; }
-
+/* Mobile WebKit clips tall Vietnamese diacritics on scaled SVG text; render glyphs as precise outlines instead */
+#map, .seat-map { overflow: visible; }
+#map text, .seat-map text { text-rendering: geometricPrecision; }
 /* architecture base */
 #map .bldg { fill: #fdfcfa; stroke: #aeb6c1; stroke-width: 3.5; stroke-linejoin: round; }
 #map .bldg-sh { fill: rgba(28,37,48,.07); }
@@ -141,7 +143,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #map .area .inner { fill: none; stroke: #fff; stroke-opacity: .7; stroke-width: 1; }
 #map .area .ripple { fill: none; stroke: #fff; stroke-opacity: .55; pointer-events: none; }
 #map .area .drum-ring { stroke: #e2a564; stroke-opacity: .55; stroke-width: 1.2; }
-#map .area .lbl { fill: var(--ink); font-weight: 650; text-anchor: middle; dominant-baseline: central; }
+#map .area .lbl { fill: var(--ink); font-weight: 650; text-anchor: middle; dominant-baseline: alphabetic; }
 #map .area .lbl.cap { letter-spacing: .16em; font-weight: 700; opacity: .8; }
 #map .area .ico { stroke: var(--ink); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: opacity .2s; }
 #map.no-entry-lbl .area.t-gate1 .lbl, #map.no-entry-lbl .area.t-lane2 .lbl { opacity: 0; }
