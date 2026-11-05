@@ -58,7 +58,7 @@
   });
   // the seating plan has its own (static) legend in a second footer; only one footer shows at a time
   const sgLegend = $('#sgLegend');
-  const SG_GROUPS = [['Chỗ ngồi', ['seat-b', 'seat-o', 'dai', 'par']], ['Lối đi', ['path-1', 'path-2']]];
+  const SG_GROUPS = [['Chỗ ngồi', ['seat-b', 'seat-o', 'dai', 'par', 'foh']], ['Lối đi', ['path-1', 'path-2']]];
   sgLegend.innerHTML = `<div class="lg-row">${SG_GROUPS.map(([title, keys]) => `<div class="lg-group"><span class="lg-title">${title}</span>
     ${SeatingView.legend.filter(l => keys.includes(l[0])).map(([, label, f, s]) =>
       `<span class="lg-item lg-static"><i class="lg-sw" style="background:${f};border-color:${s}"></i>${label}</span>`).join('')}</div>`).join('')}</div>`;

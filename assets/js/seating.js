@@ -54,6 +54,8 @@
     const x0 = Math.min(...cs.map(c => c[0])), y0 = Math.min(...cs.map(c => c[1]));
     return { x: x0, y: y0, w: Math.max(...cs.map(c => c[0] + c[2])) - x0, h: Math.max(...cs.map(c => c[1] + c[3])) - y0 };
   };
+  // FOH: the area west of the statue, same top / height as the statue; its west edge lines up with the west edge of the parents' frame above (same 4px gap to the statue)
+  const FOH = (() => { const x = bbox(CELLS.filter(c => c[4] === 'par')).x - 10; return { x, w: pux(STAT_X0) - 2 - x }; })();
 
   /* ───── seat blocks: left to right Khối 1..4, clustered by the aisles between them ───── */
   const seats = CELLS.filter(c => isSeatKind(c[4])).sort((p, q) => p[0] - q[0]);
@@ -91,6 +93,7 @@
     ['seat-o', `Tân cử nhân`, 'var(--c1-fill)', 'var(--c1-stroke)'],
     ['dai', 'Đại biểu', '#f8eaa6', '#d3b035'],
     ['par', 'Phụ huynh', '#efe9fb', '#b9a3e6'],
+    ['foh', 'FOH', '#dff3ee', '#4fb59b'],
     ['path-1', 'Lối vào cụm 1', '#ffd9bd', 'var(--c1-stroke)'],
     ['path-2', 'Lối vào cụm 2', 'var(--c2-fill)', 'var(--c2-stroke)'],
   ];
@@ -229,7 +232,7 @@
       if (k === 'stage') h += `<g class="c poi stage" data-k="stage" data-t="Sân khấu chính" data-s="Lễ tốt nghiệp 2026">${rr(x, y + 4, w, ht - 6, 10)}${rr(x, y + 4, w, ht - 6, 10, 'fill="url(#sgWood)" stroke="none"')}<text x="${f1(AX)}" y="${f1(cy + 1)}">SÂN KHẤU CHÍNH</text></g>`;
       else if (k === 'seven') h += `<g class="c poi seven" data-k="seven" data-t="7-Eleven" data-s="">${rr(x + 3, y + 3, w - 6, ht - 6, 8)}<image href="assets/img/711-logo.png" x="${f1(cx - Math.min(ht - 22, 400) / 2)}" y="${f1(cy - Math.min(ht - 22, 400) * .0885 - 1)}" width="${f1(Math.min(ht - 22, 400))}" height="${f1(Math.min(ht - 22, 400) * .177)}" transform="rotate(-90 ${f1(cx)} ${f1(cy)})"/></g>`;
       else if (k === 'tpb') h += `<g class="c poi tpb" data-k="tpb" data-t="TP Bank" data-s="">${rr(x, y + 2, w, ht - 4, 7)}<text x="${f1(cx)}" y="${f1(cy)}">TPBANK</text></g>`;
-      else if (k === 'statue') h += `<g class="c zone k-par" data-ex="1" data-k="par" data-t="Khu vực phụ huynh" data-s="Phụ huynh ngồi theo hướng dẫn của BTC">${PAR_BOX(STAT_Y)}${PAR_CELLS.flatMap(c => Array.from({ length: PAR_ROWS }, (_, i) => sq(c[0], STAT_Y + i * PAR_H, c[2], PAR_H, 4, 'class="pcell" data-cl="3"'))).join('')}</g><g class="c poi statue" data-k="statue" data-t="Tượng" data-s="Tượng Self-made man">${rr(x + 2, y + 2, w - 4, ht - 4, 8)}<text x="${f1(AX)}" y="${f1(cy)}">TƯỢNG</text></g>`;
+      else if (k === 'statue') h += `<g class="c poi foh" data-k="foh" data-t="Khu vực FOH" data-s="">${rr(FOH.x, y + 2, FOH.w, ht - 4, 8)}<text x="${f1(FOH.x + FOH.w / 2)}" y="${f1(cy)}">FOH</text></g><g class="c zone k-par" data-ex="1" data-k="par" data-t="Khu vực phụ huynh" data-s="Phụ huynh ngồi theo hướng dẫn của BTC">${PAR_BOX(STAT_Y)}${PAR_CELLS.flatMap(c => Array.from({ length: PAR_ROWS }, (_, i) => sq(c[0], STAT_Y + i * PAR_H, c[2], PAR_H, 4, 'class="pcell" data-cl="3"'))).join('')}</g><g class="c poi statue" data-k="statue" data-t="Tượng" data-s="Tượng Self-made man">${rr(x + 2, y + 2, w - 4, ht - 4, 8)}<text x="${f1(AX)}" y="${f1(cy)}">TƯỢNG</text></g>`;
     }
     // landmarks from the overview that frame the ceremony ground: Cổng 711 beside 7-Eleven, rooms 014–016 on the south edge
     h += [['CỔNG 711', 'Cổng', -138, CONG_Y, 130, 145, 'cong']]
